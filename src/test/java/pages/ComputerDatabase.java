@@ -24,12 +24,30 @@ public class ComputerDatabase {
 	@FindBy(xpath = "//input[@name='f']")
 	WebElement textBox;
 
+	@FindBy(xpath="//input[@id='searchsubmit']")
+	WebElement filterByName;
+	
 	@FindBy(tagName = "table")
 	WebElement table;
 	
 	@FindBy(id="pagination")
 	WebElement pagination;
+	
+	@FindBy(xpath="//input[@type='submit']")
+	WebElement createComputerIcon;
+	
+	@FindBy(xpath="//input[@id='name']")
+	WebElement computerNameField;
+	
+	@FindBy(xpath="//select[@id='company']")
+	WebElement selectCompany;
 
+	@FindBy(xpath="//div[@class='alert-message warning']")
+	WebElement confirmationMessage;
+	
+	@FindBy(xpath="//section/h1")
+	WebElement result;
+	
 	public String verifyPageHeader() {
 		return pageHeader.getText();
 	}
@@ -50,4 +68,32 @@ public class ComputerDatabase {
 		return pagination;
 	}
 
+	public WebElement clickCreateComputerIcon() {
+		return createComputerIcon;
+	}
+	
+	public WebElement verifyComputerNameField() {
+		return computerNameField;
+	}
+	
+	public WebElement selectCompanyName() {
+		return selectCompany;
+	}
+	
+	public WebElement verifySuccessMessage() {
+		return confirmationMessage;
+	}
+	
+	public WebElement verifyComputerNameTextBox() {
+		return textBox;
+	}
+	
+	public WebElement clickFilterByComputerName() {
+		return filterByName;
+		
+	}
+	
+	public WebElement verifyResult() {
+		return result;
+	}
 }

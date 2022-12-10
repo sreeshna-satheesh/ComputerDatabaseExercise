@@ -8,9 +8,13 @@ import java.util.Properties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.Color;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.ComputerDatabase;
 
@@ -113,6 +117,55 @@ public class StepDefinition extends BaseTest {
 		System.out.println("The pagination is visible");
 	    
 	}
+
+	@Given("click on the {string} icon")
+	public void click_on_the_icon(String string) {
+	   cd.verifyAddComputerButton().click();
+	}
+	@Given("click on the {string} button")
+	public void click_on_the_button(String string) {
+	  cd.clickCreateComputerIcon().click();  
+	}
+	@Given("validate the red background on the computer name field")
+	public void validate_the_red_background_on_the_computer_name_field() {
+		String colorvalue = cd.verifyComputerNameField().getCssValue("border-color");
+		String c = Color.fromString(colorvalue).asHex();
+		System.out.println("Color is :" + colorvalue);
+		System.out.println("Hex code for color:" + c);
+		if(!c.isEmpty()) {
+			System.out.println("The computerName field's background is highlighted");
+		}
+	}
+	@Given("enter the computer name and company")
+	public void enter_the_computer_name_and_company() {
+	    cd.verifyComputerNameField().sendKeys("TexusNew");
+	    Select sel = new Select(cd.selectCompanyName());
+	    sel.selectByVisibleText("Nokia");
+	}
+	@Given("validate the successful message on submission")
+	public void validate_the_successful_message_on_submission() {
+	   cd.clickCreateComputerIcon().click();
+	   String successfulMessage = cd.verifySuccessMessage().getText();
+	    System.out.println(successfulMessage);
+	    Assert.assertTrue(!successfulMessage.isEmpty());
+	}
+	@Then("search the created data")
+	public void search_the_created_data() {
+		 cd.verifyComputerNameTextBox().sendKeys("TexusNew");
+		 cd.clickFilterByComputerName().click();
+	}
+	@Then("validate the result")
+	public void validate_the_result() {
+	   if(!cd.verifyResult().getText().contentEquals("No computer")) {
+		   System.out.println("New computer is created");
+	   }
+		   else
+			   System.out.println("New computer is not created - Raise A defect");
+	   
+	    driver.close();
+	}
+
+
 
 
 }

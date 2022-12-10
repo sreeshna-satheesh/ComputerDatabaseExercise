@@ -48,6 +48,14 @@ And validate if headers are visible
 | Company |
 
 And validate if pagination is visible
+And click on the "Add a new computer" icon
+And click on the "Create this computer" button
+And validate the red background on the computer name field
+And enter the computer name and company
+And validate the successful message on submission
+Then search the created data
+And validate the result
+
 
 
 
